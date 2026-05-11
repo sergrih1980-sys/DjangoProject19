@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 
 def home(request):
-    return render(request, 'catalog/home.html')
+    return render(request, 'home.html')
 
 def contacts(request):
-    return render(request, 'catalog/contacts.html')
+    return render(request, 'contacts.html')
