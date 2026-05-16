@@ -5,20 +5,20 @@ class Product(models.Model):
     name =models.CharField(
         max_length=150,
         verbose_name="Наименование",
-        help_text="Введите название"),
+        help_text="Введите название")
 
 
     description = models.TextField(
         verbose_name="Описание",
-        help_text="Введите описание"),
+        help_text="Введите описание")
 
     image = models.ImageField(
             upload_to="products/",
             blank=True,
             null=True,
             verbose_name="Фото",
-            help_text="Загрузите фото товара",
-        ),
+            help_text="Загрузите фото товара"
+        )
 
     category = models.ForeignKey(
             "Category",
@@ -26,20 +26,20 @@ class Product(models.Model):
             null=True,
             blank=True,
             verbose_name="Категория",
-            help_text="Выберите категорию из списка",
-        ),
+            help_text="Выберите категорию из списка"
+        )
 
     price = models.FloatField(
         verbose_name="Цена покупки",
-        help_text="Введите цену"),
+        help_text="Введите цену")
 
     created_at = models.DateTimeField(
         auto_now_add=True,
-        verbose_name="Дата создания"),
+        verbose_name="Дата создания")
 
     updated_at = models.DateTimeField(
         auto_now=True,
-        verbose_name="Дата обновления"),
+        verbose_name="Дата обновления")
 
     class Meta:
         verbose_name = "Товар"
@@ -54,7 +54,7 @@ class Category(models.Model):
     name = models.CharField(max_length=100, verbose_name="Название")
     description = models.TextField(
     verbose_name="Описание", help_text="Введите описание"
-    ),
+    )
 
     class Meta:
         verbose_name = "Категория"
