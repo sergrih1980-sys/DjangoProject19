@@ -16,6 +16,7 @@
 4. Установите зависимости: `pip install -r requirements.txt`
 5. Запустите сервер: `python manage.py runserver`
 
+
 ## Структура проекта
 - `online_store/` — настройки проекта
 - `catalog/` — приложение каталога товаров
