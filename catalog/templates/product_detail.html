@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product.name|default:"Товар" }} — Мой магазин{% endblock %}
+
+{% block content %}
+<div class="container product-detail mt-4">
+    {% if product %}
+        <h1>{{ product.name }}</h1>
+
+        {% if product.image %}
+            <div class="product-image mb-3">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid rounded" style="max-width: 400px;">
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                <i class="bi bi-image"></i> Изображение отсутствует
+            </div>
+        {% endif %}
+
+        <div class="product-info">
+            <p><strong>Описание:</strong> {{ product.description|default:"Нет описания" }}</p>
+
+            <p><strong>Категория:</strong>
+                {% if product.category %}
+                    {{ product.category.name }}
+                {% else %}
+                    <span class="text-muted">Не указана</span>
+                {% endif %}
+            </p>
+
+            <p><strong>Цена:</strong> <span class="fw-bold">{{ product.price }} руб.</span></p>
+
+            <p><strong>Дата создания:</strong> {{ product.created_at|date:"d.m.Y H:i" }}</p>
+            <p><strong>Последнее обновление:</strong> {{ product.updated_at|date:"d.m.Y H:i" }}</p>
+        </div>
+
+        <!-- Кнопка «Назад» -->
+        <div class="mt-4">
+            <a href="{% url 'catalog:product_list' %}" class="btn btn-outline-secondary">
+                ← Назад к каталогу
+            </a>
+        </div>
+    {% else %}
+        <div class="alert alert-warning">
+            <h4>Товар не найден</h4>
+            <p>К сожалению, запрошенный товар отсутствует в базе данных.</p>
+            <a href="{% url 'catalog:product_list' %}" class="btn btn-primary">Перейти в каталог</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

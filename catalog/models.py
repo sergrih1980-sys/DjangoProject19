@@ -41,13 +41,14 @@ class Product(models.Model):
         auto_now=True,
         verbose_name="Дата обновления")
 
+    def __str__(self):
+        return self.name
+
+
     class Meta:
         verbose_name = "Товар"
         verbose_name_plural = "Товары"
         ordering = ["-created_at"]
-
-    def __str__(self):
-        return self.name
 
 
 class Category(models.Model):

@@ -1,0 +1,45 @@
+/* Общие стили */
+.site-header {
+    background: #2c3e50;
+    color: white;
+    padding: 1rem 0;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.site-header h1 a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Стили меню */
+.main-menu .menu-list {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+}
+
+.main-menu .menu-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.main-menu .menu-link:hover {
+    color: #3498db;
+}
+
+/* Подвал */
+.site-footer {
+    background: #34495e;
+    color: #ecf0f1;
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-top: 2rem;
+}

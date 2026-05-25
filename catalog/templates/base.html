@@ -1,52 +1,4 @@
-{% extends "base.html" %}
-
-{% block title %}Главная страница — Мой магазин{% endblock %}
-
-{% block content %}
-<div class="container">
-    <h1>Наши товары</h1>
-
-    <div class="products-grid">
-        {% for product in products %}
-        <div class="product-card">
-            <div class="product-image">
-                {% if product.image %}
-                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="card-img">
-                {% else %}
-                    <div class="no-image">Нет изображения</div>
-                {% endif %}
-            </div>
-
-            <div class="product-info">
-                <h3 class="product-name">{{ product.name }}</h3>
-
-                <p class="product-description">
-                    {% if product.description %}
-                        {{ product.description|truncatechars:100 }}
-                    {% else %}
-                        Описание отсутствует
-                    {% endif %}
-                </p>
-
-                <div class="product-meta">
-                    <p class="product-category">
-                Категория:
-                {% if product.category %}
-                    {{ product.category.name }}
-                {% else %}
-                    Не указана
-                {% endif %}
-            </p>
-            <p class="product-price">Цена: {{ product.price }} руб.</p>
-        </div>
-
-        <a href="{% url 'product_detail' product.id %}" class="btn-view">Подробнее</a>
-    </div>
-    {% endfor %}
-</div>
-</div>
-{% endblock %}
-
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -59,7 +11,7 @@
 </head>
 <body>
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
-        <h5 class="my-0 mr-md-auto font-weight-normal">Skystore</h5>
+        <h5 class="my-0 mr-md-auto fw-normal">Skystore</h5>
         <nav class="ms-5">
             <a class="p-2 btn btn-outline-primary" href="/">Каталог</a>
             <a class="p-2 btn btn-outline-primary" href="/contacts/">Контакты</a>
@@ -76,8 +28,8 @@
             <div class="col-3">
                 <div class="card mb-4 box-shadow">
                     <div class="card-header">
-                        <h4 class="my-0 font-weight-normal">Удобный сервис рассылок</h4>
-            </div>
+                        <h4 class="my-0 fw-normal">Удобный сервис рассылок</h4>
+                    </div>
             <div class="card-body">
                 <h1 class="card-title pricing-card-title">$ 140</h1>
                 <ul class="list-unstyled mt-3 mb-4 text-start m-3">
