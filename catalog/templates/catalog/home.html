@@ -1,49 +1,23 @@
 {% extends "base.html" %}
 
-{% block title %}Главная страница — Мой магазин{% endblock %}
+{% block title %}Главная — Skystore{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1>Наши товары</h1>
+<div class="container mt-4">
+    <h1>Добро пожаловать в Skystore!</h1>
+    <p>Это магазин плагинов и примеров кода для продажи.</p>
 
-    <div class="products-grid">
-        {% for product in products %}
-        <div class="product-card">
-            <div class="product-image">
-                {% if product.image %}
-                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="card-img">
-                {% else %}
-                    <div class="no-image">Нет изображения</div>
-                {% endif %}
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Каталог товаров</h5>
+                    <p class="card-text">Посмотрите все доступные товары.</p>
+            <a href="{% url 'catalog:product_list' %}" class="btn btn-primary">Перейти в каталог</a>
+                </div>
             </div>
-
-            <div class="product-info">
-                <h3 class="product-name">{{ product.name }}</h3>
-
-                <p class="product-description">
-                    {% if product.description %}
-                        {{ product.description|truncatechars:100 }}
-                    {% else %}
-                        Описание отсутствует
-                    {% endif %}
-                </p>
-
-                <div class="product-meta">
-                    <p class="product-category">
-                Категория:
-                {% if product.category %}
-                    {{ product.category.name }}
-                {% else %}
-                    Не указана
-                {% endif %}
-            </p>
-            <p class="product-price">Цена: {{ product.price }} руб.</p>
         </div>
-
-        <a href="{% url 'product_detail' product.id %}" class="btn-view">Подробнее</a>
     </div>
-    {% endfor %}
-</div>
 </div>
 {% endblock %}
 
