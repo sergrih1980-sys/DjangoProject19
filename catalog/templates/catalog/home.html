@@ -1,3 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Главная — Skystore{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Добро пожаловать в Skystore!</h1>
+    <p>Это магазин плагинов и примеров кода для продажи.</p>
+
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Каталог товаров</h5>
+                    <p class="card-text">Посмотрите все доступные товары.</p>
+            <a href="{% url 'catalog:product_list' %}" class="btn btn-primary">Перейти в каталог</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
