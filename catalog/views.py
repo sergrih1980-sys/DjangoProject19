@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView, DetailView, ListView
+
 from .models import Product
 
 
@@ -17,8 +17,10 @@ class HomeView(ListView):
     context_object_name = 'products'
     queryset = Product.objects.all()
 
+
 class ProductListView(ListView):
     model = Product
     template_name = 'catalog/product_list.html'
     context_object_name = 'products'
     queryset = Product.objects.all()
+
