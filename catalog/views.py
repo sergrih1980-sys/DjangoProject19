@@ -1,6 +1,7 @@
 from django.views.generic import TemplateView, DetailView, ListView
 from .models import Product
 
+
 class ContactsView(TemplateView):
     template_name = "contacts.html"
 
