@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Products</title>
+</head>
+<body>
+    <h1>Products List</h1>
+
+    <!-- Ссылка на создание нового продукта -->
+    <p><a href="{% url 'shop_products:product_create' %}">Создать новый продукт</a></p>
+
+    {% if products %}
+        <ul>
+            {% for product in products %}
+                <li>
+                    <a href="{% url 'shop_products:product_detail' product.id %}">
+                        <strong>{{ product.name }}</strong> - ${{ product.price }}
+                    </a>
+            | <a href="{% url 'shop_products:product_update' product.id %}">Редактировать</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No products found.</p>
+    {% endif %}
+
+    <!-- Ссылка для возврата на главную -->
+    <p><a href="/">Вернуться на главную</a></p>
+</body>
+</html>

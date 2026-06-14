@@ -23,6 +23,18 @@
         <p class="lead">Skystore — это отличный вариант хранения ваших плагинов и примеров кода, который вы бы хотели продать</p>
     </div>
 
+     <!-- Блок для Django messages -->
+    {% if messages %}
+        <div class="container">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <div class="container">
         <div class="row text-center">
             <div class="col-3">
