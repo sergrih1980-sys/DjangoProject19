@@ -1,32 +1,40 @@
 {% extends "base.html" %}
 
-{% block title %}Каталог товаров — Skystore{% endblock %}
-
 {% block content %}
 <div class="container mt-4">
-    <h1>Наши товары</h1>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Список продуктов</h1>
+        <a href="{% url 'products:product_create' %}" class="btn btn-primary">
+            Добавить продукт
+        </a>
+    </div>
 
-    {% if products %}
-        <div class="row">
-            {% for product in products %}
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">{{ product.name }}</h5>
-            <p class="card-text">{{ product.price }} руб.</p>
-            {% if product.description %}
-                <p class="text-muted">{{ product.description|truncatechars:100 }}</p>
-            {% endif %}
-            <a href="{% url 'catalog:product_detail' product.id %}" class="btn btn-primary">Подробнее</a>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="row">
+        {% for product in products %}
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">{{ product.description|truncatechars:100 }}</p>
+                        <p class="card-text"><strong>Цена:</strong> {{ product.price }} руб.</p>
+                        <div class="d-flex gap-2">
+                            <a href="{% url 'products:product_update' product.pk %}"
+                               class="btn btn-sm btn-outline-primary">Редактировать</a>
+                            <a href="{% url 'products:product_delete' product.pk %}"
+                               class="btn btn-sm btn-outline-danger">Удалить</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-            {% endfor %}
-        </div>
-    {% else %}
-        <div class="alert alert-info">
-            Товары пока не добавлены.
-        </div>
-    {% endif %}
+        {% empty %}
+            <p>Продукты не найдены.</p>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

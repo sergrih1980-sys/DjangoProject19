@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ product.name }}</title>
+</head>
+<body>
+    <h1>{{ product.name }}</h1>
+    <p>{{ product.description }}</p>
+    <p><strong>Цена: ${{ product.price }}</strong></p>
+    <a href="{% url 'shop_products:product_list' %}">Назад к списку</a>
+</body>
+</html>
