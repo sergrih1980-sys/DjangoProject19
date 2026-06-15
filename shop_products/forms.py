@@ -52,29 +52,46 @@ class ProductForm(forms.ModelForm):
         model = Product
         fields = ['name', 'description', 'price']
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Общие стили для всех полей
+        common_attrs = {
+            'class': 'form-control',
+            'placeholder': 'Введите значение...'
+        }
+
+        # Индивидуальные стили для каждого поля
+        self.fields['name'].widget.attrs.update({
+            **common_attrs,
+            'placeholder': 'Название продукта',
+            'autofocus': 'autofocus'
+        })
+
+        self.fields['description'].widget.attrs.update({
+            **common_attrs,
+            'placeholder': 'Описание продукта',
+            'rows': '4',
+            'class': 'form-control form-control-lg'
+        })
+
+        self.fields['price'].widget.attrs.update({
+            **common_attrs,
+            'placeholder': '0.00',
+            'step': '0.01',
+            'min': '0',
+            'class': 'form-control'
+        })
+
     def clean_price(self):
         price = self.cleaned_data.get('price')
 
-        if price is not None and price < 0:
-            raise forms.ValidationError(
-                'Цена не может быть отрицательной. Пожалуйста, введите положительное число или ноль.'
-            )
-
         if price is None:
-            # Если поле пустое, но оно не обязательно — возвращаем None
-            # Если обязательно, Django уже выдаст ошибку
             return price
 
-            # Основная проверка: цена не должна быть отрицательной
         if price < 0:
             raise forms.ValidationError(
                 'Цена не может быть отрицательной. Пожалуйста, введите положительное число или ноль.'
-            )
-
-            # Дополнительная проверка: максимальная цена (опционально)
-        if price > 1000000:  # например, ограничение в 1 000 000
-            raise forms.ValidationError(
-                'Цена слишком высокая. Максимальная допустимая цена — 1 000 000.'
             )
 
         return price
