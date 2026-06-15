@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,9 +27,9 @@
                 {% if form.name.errors %}
                     <div class="error">
                         {% for error in form.name.errors %}
-                    <span>{{ error }}</span>
+                            <span>{{ error }}</span>
                         {% endfor %}
-            </div>
+                    </div>
                 {% endif %}
             </div>
 
@@ -36,7 +37,7 @@
                 <label for="{{ form.description.id_for_label }}">Описание:</label>
                 {{ form.description }}
                 {% if form.description.errors %}
-            <div class="error">{{ form.description.errors }}</div>
+                    <div class="error">{{ form.description.errors }}</div>
                 {% endif %}
             </div>
 
@@ -44,11 +45,11 @@
                 <label for="{{ form.price.id_for_label }}">Цена:</label>
                 {{ form.price }}
                 {% if form.price.errors %}
-            <div class="error">
+                    <div class="error">
                         {% for error in form.price.errors %}
-            <span>{{ error }}</span>
+                            <span>{{ error }}</span>
                         {% endfor %}
-            </div>
+                    </div>
                 {% endif %}
             </div>
 

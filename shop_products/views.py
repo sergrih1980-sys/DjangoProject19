@@ -3,6 +3,10 @@ from django.contrib import messages
 from shop_products.models import Product
 from .forms import ProductForm
 
+def product_detail(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    return render(request, 'shop_products/product_detail.html', {'product': product})
+
 
 def product_list(request):
     products = Product.objects.all()

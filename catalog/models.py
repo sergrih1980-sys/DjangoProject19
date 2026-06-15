@@ -68,8 +68,6 @@ class Category(models.Model):
         return self.name
 
 
-from django.db import models
-
 class Product(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
@@ -78,7 +76,7 @@ class Product(models.Model):
     category = models.CharField(
         max_length=100,
         default='General'
-    )  # добавьте это поле
+    )
 
     def __str__(self):
         return self.name
