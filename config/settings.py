@@ -14,6 +14,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 import os
 from dotenv import load_dotenv
 from pathlib import Path
+import os
 
 load_dotenv(override=True)
 
@@ -131,16 +132,13 @@ STATICFILES_DIRS = (BASE_DIR / 'static',)
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
-
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.yandex.ru'
-EMAIL_PORT = 465
-EMAIL_USE_SSL = True
-EMAIL_HOST_USER = 'sergrihlobysev1980@yandex.ru'
-EMAIL_HOST_PASSWORD = 'ehhiteeuoqnmhxjx'
-
-
+EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.yandex.ru')
+EMAIL_PORT = int(os.getenv('EMAIL_PORT', 465))
+EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL', 'True').lower() == 'true'
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'False').lower() == 'true'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', )
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', )
 
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
