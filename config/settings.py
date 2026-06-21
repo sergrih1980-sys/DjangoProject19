@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "catalog",
     "blog_app",
     'shop_products',
+    'users',
 
 ]
 
@@ -127,3 +128,21 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = (BASE_DIR / 'static',)
+
+AUTH_USER_MODEL = 'users.CustomUser'
+
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = 'sergrihlobysev1980@yandex.ru'
+EMAIL_HOST_PASSWORD = 'ehhiteeuoqnmhxjx'
+
+
+
+SERVER_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+LOGIN_URL = '/users/login/'

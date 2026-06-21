@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Главная страница</title>
+</head>
+<body>
+    <h1>Добро пожаловать на наш сайт!</h1>
+    <nav>
+        <ul>
+            <li><a href="{% url 'shop_products:product_list' %}">Каталог товаров</a></li>
+            <li><a href="/catalog/">Каталог</a></li>
+            <li><a href="/blog/">Блог</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="/users/logout/">Выйти</a></li>
+            {% else %}
+                <li><a href="/users/login/">Войти</a></li>
+                <li><a href="/users/register/">Зарегистрироваться</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</body>
+</html>

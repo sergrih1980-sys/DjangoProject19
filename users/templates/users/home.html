@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Главная</title>
+</head>
+<body>
+    <h2>Добро пожаловать!</h2>
+    <p>Вы успешно вошли как {{ user.email }}</p>
+    <a href="{% url 'logout' %}">Выйти</a>
+</body>
+</html>
