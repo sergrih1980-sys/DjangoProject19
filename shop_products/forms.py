@@ -9,22 +9,46 @@ FORBIDDEN_WORDS = [
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name', 'description', 'price']
+        fields = ['name', 'description', 'price', 'is_published']  # Поле owner не включаем
         widgets = {
             'name': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Введите название продукта'
+                'placeholder': 'Название продукта',
+                'autofocus': 'autofocus'
             }),
             'description': forms.Textarea(attrs={
-                'class': 'form-control',
+                'class': 'form-control form-control-lg',
                 'rows': 4,
-                'placeholder': 'Введите описание продукта'
+                'placeholder': 'Описание продукта'
             }),
             'price': forms.NumberInput(attrs={
                 'class': 'form-control',
-                'step': '0.01'
+                'step': '0.01',
+                'min': '0',
+                'placeholder': '0.00'
             }),
+            'is_published': forms.CheckboxInput(attrs={
+                'class': 'form-check-input'
+            })
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Дополнительная настройка полей при необходимости
+        pass
+
+    def clean_price(self):
+        price = self.cleaned_data.get('price')
+
+        if price is None:
+            return price
+
+        if price < 0:
+            raise forms.ValidationError(
+                'Цена не может быть отрицательной. Пожалуйста, введите положительное число или ноль.'
+            )
+
+        return price
 
     def clean_name(self):
         name = self.cleaned_data.get('name')
@@ -46,52 +70,3 @@ class ProductForm(forms.ModelForm):
                 raise forms.ValidationError(
                     f'{field_label} содержит запрещённое слово: "{word}"'
                 )
-
-class ProductForm(forms.ModelForm):
-    class Meta:
-        model = Product
-        fields = ['name', 'description', 'price']
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        # Общие стили для всех полей
-        common_attrs = {
-            'class': 'form-control',
-            'placeholder': 'Введите значение...'
-        }
-
-        # Индивидуальные стили для каждого поля
-        self.fields['name'].widget.attrs.update({
-            **common_attrs,
-            'placeholder': 'Название продукта',
-            'autofocus': 'autofocus'
-        })
-
-        self.fields['description'].widget.attrs.update({
-            **common_attrs,
-            'placeholder': 'Описание продукта',
-            'rows': '4',
-            'class': 'form-control form-control-lg'
-        })
-
-        self.fields['price'].widget.attrs.update({
-            **common_attrs,
-            'placeholder': '0.00',
-            'step': '0.01',
-            'min': '0',
-            'class': 'form-control'
-        })
-
-    def clean_price(self):
-        price = self.cleaned_data.get('price')
-
-        if price is None:
-            return price
-
-        if price < 0:
-            raise forms.ValidationError(
-                'Цена не может быть отрицательной. Пожалуйста, введите положительное число или ноль.'
-            )
-
-        return price

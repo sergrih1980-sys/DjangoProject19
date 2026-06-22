@@ -1,0 +1,25 @@
+<h1>{{ product.name }}</h1>
+<p>{{ product.description }}</p>
+<p>Цена: {{ product.price }} руб.</p>
+<p>Опубликован: {% if product.is_published %}Да{% else %}Нет{% endif %}</p>
+<p>Владелец: {{ product.owner.username }}</p>
+
+<!-- Кнопка редактирования — только для владельца -->
+{% if user == product.owner %}
+    <a href="{% url 'shop_products:product_update' product.pk %}" class="btn btn-primary">
+        Редактировать
+    </a>
+{% endif %}
+
+<!-- Кнопка удаления — только для владельца ИЛИ модератора -->
+{% if user == product.owner or user.has_perm("shop_products.can_unpublish_product") %}
+    <form method="post" action="{% url 'shop_products:product_delete' product.pk %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger"
+                onclick="return confirm('Вы уверены, что хотите удалить этот продукт?')">
+            Удалить продукт
+        </button>
+    </form>
+{% endif %}
+
+<a href="{% url 'shop_products:product_list' %}" class="btn btn-secondary">Назад к списку</a>
