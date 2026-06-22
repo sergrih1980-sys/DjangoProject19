@@ -1,0 +1,15 @@
+<h1>Список продуктов</h1>
+<a href="{% url 'shop_products:product_create' %}" class="btn btn-success">Создать новый продукт</a>
+
+
+<ul>
+    {% for product in products %}
+        <li>
+            <a href="{% url 'shop_products:product_detail' product.pk %}">{{ product.name }}</a>
+            - {{ product.price }} руб.
+            {% if user == product.owner %}
+                (<a href="{% url 'shop_products:product_update' product.pk %}">редактировать</a>)
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
