@@ -6,6 +6,7 @@ from .forms import ProductForm
 from django.contrib.auth.decorators import login_required
 from .services import get_products_by_category
 from .models import Category
+from django.views.generic import ListView
 
 @login_required
 def product_detail(request, pk):
@@ -75,13 +76,12 @@ def product_delete(request, pk):
     return render(request, 'shop_products/product_confirm_delete.html', {'product': product})
 
 
-class ProductsByCategoryView:
+class ProductsByCategoryView(ListView):
     template_name = 'shop_products/products_by_category.html'
     context_object_name = 'products'
 
     def get_queryset(self):
         category_id = self.kwargs.get('category_id')
-        # Используем сервисную функцию вместо прямого queryset
         return get_products_by_category(category_id=category_id, only_published=True)
 
     def get_context_data(self, **kwargs):
