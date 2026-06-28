@@ -4,6 +4,8 @@ from django.core.exceptions import PermissionDenied
 from shop_products.models import Product
 from .forms import ProductForm
 from django.contrib.auth.decorators import login_required
+from .services import get_products_by_category
+from .models import Category
 
 @login_required
 def product_detail(request, pk):
@@ -71,3 +73,28 @@ def product_delete(request, pk):
         return redirect('shop_products:product_list')
 
     return render(request, 'shop_products/product_confirm_delete.html', {'product': product})
+
+
+class ProductsByCategoryView:
+    template_name = 'shop_products/products_by_category.html'
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        category_id = self.kwargs.get('category_id')
+        # Используем сервисную функцию вместо прямого queryset
+        return get_products_by_category(category_id=category_id, only_published=True)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        category_id = self.kwargs.get('category_id')
+
+        if category_id:
+            category = Category.objects.filter(pk=category_id).first()
+            context['current_category'] = category
+            context['page_title'] = f'Продукты в категории: {category.name}' if category else 'Продукты'
+        else:
+            context['current_category'] = None
+            context['page_title'] = 'Все продукты'
+
+        context['categories'] = Category.objects.all().order_by('name')
+        return context
